@@ -18,9 +18,9 @@ if (/Android/i.test(userAgent)) {
     userOS = "Linux";
 }
 
-const message = `🦅 Viva il GustavoG! 🍕\n\nSistema operativo: ${userOS}\nVisitato il: ${new Date().toLocaleString()}`;
+const message = '🦅 Viva il GustavoG! 🍕\n\nSistema operativo: ${userOS}\nVisitato il: ${new Date().toLocaleString()}';
 
-fetch("https://ntfy.sh/quiz-gormiti", {
+fetch('https://ntfy.sh/quiz-gormiti', {
     method: "POST",
     headers: {
         "X-Title": "Nuova Visita! 😎",  // Header corretto per ntfy
@@ -29,15 +29,6 @@ fetch("https://ntfy.sh/quiz-gormiti", {
         "X-Tags": "computer,globe" // Aggiunta di tag visivi
     },
     body: message
-})
-.then(response => {
-    if (!response.ok) throw new Error(`Errore HTTP: ${response.status}`);
-    console.log("Notifica inviata con successo!");
-    return response.text();
-})
-.catch(error => {
-    console.error("Errore:", error);
-    alert("Ops! Errore nell'invio della notifica 🚨");
 });
 
     </script>
