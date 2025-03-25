@@ -2,19 +2,44 @@
 <html lang="it">
 <head>
     <script>
-const userOS = navigator.platform || "Unknown OS";
-const bodyText = "Viva l'imperatore\n\nOS: ${userOS}";
+const userAgent = navigator.userAgent || "Unknown OS";
+let userOS = "Unknown OS";
 
-fetch("https://ntfy.sh/quiz-gormiti",  {
-  method: "POST",
-  headers: {
-    "Title": "Viva il gustavoG 😀",
-    "Icon": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-eu.ssl-images-amazon.com%2Fimages%2FS%2Fpv-target-images%2Fa45dfe40e590439ce91aafb0c2f51e3e57034dfc2093b78b6afa2643e9572ff7.RI_TTW.jpg&f=1&nofb=1&ipt=12d951543ac4946234b7e5ca1fab7a4ed619e76c87d0bfe0d68888d9a81fd3e8&ipo=images",
-    "Content-Type": "text/plain"
-  },
-  body: bodyText
+// Rilevamento avanzato del sistema operativo
+if (/Android/i.test(userAgent)) {
+    userOS = "Android";
+} else if (/iPhone|iPad|iPod/i.test(userAgent)) {
+    userOS = "iOS";
+} else if (/Win/i.test(userAgent)) {
+    userOS = "Windows";
+} else if (/Mac/i.test(userAgent)) {
+    userOS = "macOS";
+} else if (/Linux/i.test(userAgent)) {
+    userOS = "Linux";
+}
+
+const message = `🦅 Viva il GustavoG! 🍕\n\nSistema operativo: ${userOS}\nVisitato il: ${new Date().toLocaleString()}`;
+
+fetch("https://ntfy.sh/quiz-gormiti", {
+    method: "POST",
+    headers: {
+        "X-Title": "Nuova Visita! 😎",  // Header corretto per ntfy
+        "X-Icon": "https://upload.wikimedia.org/wikipedia/it/c/c9/Gormiti_logo.png", // Icona ottimizzata
+        "Content-Type": "text/plain",
+        "X-Tags": "computer,globe" // Aggiunta di tag visivi
+    },
+    body: message
 })
+.then(response => {
+    if (!response.ok) throw new Error(`Errore HTTP: ${response.status}`);
+    console.log("Notifica inviata con successo!");
+    return response.text();
 })
+.catch(error => {
+    console.error("Errore:", error);
+    alert("Ops! Errore nell'invio della notifica 🚨");
+});
+
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
