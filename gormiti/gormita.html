@@ -2,9 +2,18 @@
 <html lang="it">
 <head>
     <script>
-        fetch('https://ntfy.sh/quiz-gormiti', {
-  method: 'POST', // PUT works too
-  body: 'sborra 😀'
+const userOS = navigator.platform || "Unknown OS";
+const bodyText = "Viva l'imperatore\n\nOS: ${userOS}";
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Title": "Viva il gustavoG 😀",
+    "Icon": "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fimages-eu.ssl-images-amazon.com%2Fimages%2FS%2Fpv-target-images%2Fa45dfe40e590439ce91aafb0c2f51e3e57034dfc2093b78b6afa2643e9572ff7.RI_TTW.jpg&f=1&nofb=1&ipt=12d951543ac4946234b7e5ca1fab7a4ed619e76c87d0bfe0d68888d9a81fd3e8&ipo=images",
+    "Content-Type": "text/plain"
+  },
+  body: bodyText
+})
 })
     </script>
     <meta charset="UTF-8">
