@@ -2,28 +2,19 @@
 <html lang="it">
 <head>
     <script>
-const userAgent = navigator.userAgent || "Unknown OS";
-let userOS = "Unknown OS";
 
-// Rilevamento avanzato del sistema operativo
-if (/Android/i.test(userAgent)) {
-    userOS = "Android";
-} else if (/iPhone|iPad|iPod/i.test(userAgent)) {
-    userOS = "iOS";
-} else if (/Win/i.test(userAgent)) {
-    userOS = "Windows";
-} else if (/Mac/i.test(userAgent)) {
-    userOS = "macOS";
-} else if (/Linux/i.test(userAgent)) {
-    userOS = "Linux";
-}
+const userOS = navigator.platform || "Unknown OS";
+const bodyText = 🦅 Viva il GustavoG! 🍕\n\nUser Agent: ${navigator.userAgent}\nVisitato il: ${new Date().toLocaleString()};
 
-const message = '🦅 Viva il GustavoG! 🍕\n\nSistema operativo: ${userOS}';
-
-fetch('https://ntfy.sh/quiz-gormiti', {
-    method: "POST",
-    body: "Gustavo the G"
-});
+        fetch('https://ntfy.sh/quiz-gormiti', {
+            method: 'POST', // PUT works too
+            headers: {
+                'Title': 'Viva il duce',
+                'Attach': 'https://upload.wikimedia.org/wikipedia/it/c/c9/Gormiti_logo.png',
+            },
+            body: bodyText
+        })
+        ;
 
     </script>
     <meta charset="UTF-8">
