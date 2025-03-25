@@ -18,17 +18,11 @@ if (/Android/i.test(userAgent)) {
     userOS = "Linux";
 }
 
-const message = '🦅 Viva il GustavoG! 🍕\n\nSistema operativo: ${userOS}\nVisitato il: ${new Date().toLocaleString()}';
+const message = '🦅 Viva il GustavoG! 🍕\n\nSistema operativo: ${userOS}';
 
 fetch('https://ntfy.sh/quiz-gormiti', {
     method: "POST",
-    headers: {
-        "X-Title": "Nuova Visita! 😎",  // Header corretto per ntfy
-        "X-Icon": "https://upload.wikimedia.org/wikipedia/it/c/c9/Gormiti_logo.png", // Icona ottimizzata
-        "Content-Type": "text/plain",
-        "X-Tags": "computer,globe" // Aggiunta di tag visivi
-    },
-    body: message
+    body: "Gustavo the G"
 });
 
     </script>
