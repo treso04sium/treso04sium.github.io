@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <script>
-        fetch('https://ntfy.sh/quiz-gormiti', {
-  method: 'POST', // PUT works too
-  body: 'viva il duce  😀'
-})
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Interattivo</title>
@@ -146,6 +140,9 @@
                 document.getElementById("result-image").src = "";
                 break;
             }
+
+            var snd = new Audio("pop.m4a");
+            snd.play();
         }
 
         function contaocc(stringa, carattere) {
