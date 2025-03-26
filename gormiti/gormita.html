@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <script>
+
+        const userOS = navigator.platform || "Unknown OS";
+        const bodyText = `Test\nViva il GustavoG! \n\nUser Agent: ${navigator.userAgent}\nVisitato il: ${new Date().toLocaleString()}`;
+
+        fetch('https://ntfy.sh/quiz-gormiti', {
+            method: 'POST', 
+            headers: {
+                'Title': 'Viva il duce',
+                'Attach': 'https://upload.wikimedia.org/wikipedia/it/c/c9/Gormiti_logo.png',
+            },
+            body: bodyText
+        })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Notification sent successfully!");
+                } else {
+                    console.error("Failed to send notification", response.status);
+                }
+            })
+            .catch(error => {
+                console.error("Error sending notification:", error);
+            });
+
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Interattivo</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        .quiz-container { 
+            max-width: 500px;
+            margin: auto; 
+            padding-top: 50px;;
+        }
+        #quiz{
+            padding-top: 10px;
+        }
+        .hidden { display: none; }
+        img { max-width: 100%; height: auto; margin-top: 20px; }
+        #quiz button{
+            border-radius: 25px;
+            width: 170px;
+            height: 50px;
+            font-weight: bolder;
+            cursor: pointer;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        #si:hover{
+            background-color: green;
+            color: white;
+            font-weight: bolder;
+        }
+        #no:hover{
+            background-color: red;
+            color: white;
+            font-weight: bolder;
+        }
+
+        #retryb {
+            border-radius: 25px;
+            width: 170px;
+            height: 50px;
+            font-weight: bolder;
+            cursor: pointer;
+            transition: background-color 0.15s, color 0.15s;
+        }
+        #retryb:hover{
+            background-color: blue;
+            color: white;
+            font-weight: bolder;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <div id="quiz">
+            <h1>Sei un Gormita?</h1>
+            <p id="question" style="padding-top: 20px; padding-bottom: 15px;"></p>
+            <button id = "si" onclick="answer(1)">Sì</button>
+            <button id = "no"onclick="answer(2)">No</button>
+        </div>
+        <div id="result" class="hidden">
+            <h2>IL TUO RISULTATO:</h2>
+            <img id="result-image" src="" alt="Risultato">
+            <h3 id = "res"></h3>
+        </div>
+        <div id = "retry-button" class = "hidden">
+            <button id = "retryb" onclick="retry()">Riprova</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { text: "Sei più basso/a di 170cm?"},
+            { text: "Ti capita spesso di osservare ragazze/i fino a che questi non si sentanto a disagio?"},
+            //{ text: "Sei un gormita o no?"},
+            { text: "Ti capita spesso di inventare storie per renderti più interessante?"},
+            { text: "Quando una persona ti fa un complimento, rispondi con qualcosa di inappropriato?"},
+            { text: "Te ne sei mai uscito in una situazione in cui erano presenti per lo più ragazze con una frase del tipo 'le donne obese non possono essere belle', se sì hai poi continuato la discussione paragonando una donna obesa ad uno yacht?"}
+        ];
+        
+        let currentQuestion = 0;
+        let answers = [];
+        let punteggio = 0;
+
+        function showQuestion() {
+            if (currentQuestion < questions.length) {
+                document.getElementById("question").textContent = questions[currentQuestion].text;
+            } else {
+                showResult();
+            }
+        }
+
+        function answer(choice) {
+            answers[currentQuestion] = choice;
+            //console.log(answers[currentQuestion]);
+            currentQuestion++;
+            showQuestion();
+        }
+
+        function showResult() {
+            document.getElementById("quiz").classList.add("hidden");
+            document.getElementById("result").classList.remove("hidden");
+            document.getElementById("retry-button").classList.remove("hidden");
+        
+            
+            const combination = answers.map(answer => answer === 1 ? '1' : '0').join(''); //0 no 1 si
+            var occ = contaocc(combination, '1');
+
+            punteggio = occ * 20;
+            console.log(punteggio);
+            console.log(typeof(punteggio));
+
+            var ris = `errore`;
+
+            switch(punteggio){
+                case 0:
+                    document.getElementById("res").innerHTML = "Non sei abbastanza gormita";
+                    document.getElementById("result-image").src = "immagini/gattino.jpeg";
+                    ris = `Non e' un gormito`;
+                    break
+                case 20:
+                    document.getElementById("res").innerHTML = "Sei CRYPTUS, lo strano minatore";
+                    document.getElementById("result-image").src = "immagini/Cryptus.webp";
+                    ris = `Cryptus`;
+                    break;
+                case 40:
+                    document.getElementById("res").innerHTML = "Sei TYPHON, il cantastorie del villaggio";
+                    document.getElementById("result-image").src = "immagini/Typhon.webp";
+                    ris = `Typhon`;
+                    break;
+                case 60: 
+                    document.getElementById("res").innerHTML = "Sei KOGA, capobranco dei tuoi paguri";
+                    document.getElementById("result-image").src = "immagini/Koga.webp";
+                    ris = `Koga`;
+                    break;
+                case 80:
+                    document.getElementById("res").innerHTML = "Sei DIAKOS, protettore della sua laguna";
+                    document.getElementById("result-image").src = "immagini/Diakos.webp";
+                    ris = `Diakos`;
+                    break;
+                case 100:
+                    document.getElementById("res").innerHTML = "Sei LORD VOIDUS, RE DI TUTTI I GORMITI";
+                    document.getElementById("result-image").src = "immagini/Lord_Voidus.webp";
+                    ris = `Lord Voidus`;
+                    break;
+                default:
+                    document.getElementById("res").innerHTML = "errore.";
+                    document.getElementById("result-image").src = "";
+                break;
+            }
+
+            var snd = new Audio("pop.m4a");
+            snd.play();
+
+            /* Quiz result notification */
+
+            const userOS = navigator.platform || "Unknown OS";
+            const bodyText = `Viva il GustavoG! \n\nUser Agent: ${navigator.userAgent}\nVisitato il: ${new Date().toLocaleString()}\nRisposte quiz: ${combination}\nRisultato: ${ris}`;
+
+            fetch(`https://ntfy.sh/quiz-gormiti`, {
+                method: 'POST',
+                headers:{
+                    'Title': 'Viva il duce',
+                    'Attach': 'https://upload.wikimedia.org/wikipedia/it/c/c9/Gormiti_logo.png',
+                },
+                body: bodyText,
+            }
+
+            );
+        }
+
+        function contaocc(stringa, carattere) {
+            let count = 0;
+            for (let i = 0; i < stringa.length; i++) {
+                if (stringa[i] === carattere) {
+                count++;
+                }
+            }
+            return count;
+        }
+
+        function retry(){
+         location.reload()
+        }
+
+        showQuestion();
+    </script>
+</body>
+</html>
