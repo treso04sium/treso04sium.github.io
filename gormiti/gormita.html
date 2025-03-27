@@ -1,31 +1,6 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <script>
-
-        const userOS = navigator.platform || "Unknown OS";
-        const bodyText = `Test\nViva il GustavoG! \n\nUser Agent: ${navigator.userAgent}\nVisitato il: ${new Date().toLocaleString()}`;
-
-        fetch('https://ntfy.sh/quiz-gormiti', {
-            method: 'POST', 
-            headers: {
-                'Title': 'Viva il duce',
-                'Attach': 'https://upload.wikimedia.org/wikipedia/it/c/c9/Gormiti_logo.png',
-            },
-            body: bodyText
-        })
-            .then(response => {
-                if (response.ok) {
-                    console.log("Notification sent successfully!");
-                } else {
-                    console.error("Failed to send notification", response.status);
-                }
-            })
-            .catch(error => {
-                console.error("Error sending notification:", error);
-            });
-
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quiz Interattivo</title>
