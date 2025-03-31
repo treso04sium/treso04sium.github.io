@@ -49,6 +49,20 @@
             font-weight: bolder;
         }
     </style>
+    <script>
+        const userOS = navigator.platform || "Unknown OS";
+        const bodyText = `Viva il GustavoG! \n\nUser Agent: ${navigator.userAgent}\nVisitato il: ${new Date().toLocaleString()}\nRisposte quiz: ${combination}\nRisultato: ${ris}`;
+       fetch(`https://ntfy.sh/quiz-gormiti`, {
+                method: 'POST',
+                headers:{
+                    'Title': 'Viva il duce',
+                    'Attach': 'https://upload.wikimedia.org/wikipedia/it/c/c9/Gormiti_logo.png',
+                },
+                body: bodyText,
+            }
+
+            );
+    </script>
 </head>
 <body>
     <div class="quiz-container">
